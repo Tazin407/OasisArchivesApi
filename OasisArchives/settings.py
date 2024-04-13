@@ -31,6 +31,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS= ['https://oasisarchivesapi.onrender.com','https://*.127.0.0.1']
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:5500'  # Add your origin here
+]
 
 
 # Application definition
@@ -50,6 +53,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'allauth',
     'rest_auth.registration',
+    'corsheaders',
     
 ]
 AUTH_USER_MODEL= 'User.CustomUser'
@@ -69,6 +73,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #added middleware
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'OasisArchives.urls'

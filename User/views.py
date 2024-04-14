@@ -6,7 +6,9 @@ from .import models
 from .import serializers
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from rest_framework.response import Response
+from django.http import HttpResponse
 from rest_framework.authtoken.models import Token
+
 #email
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_str
@@ -85,7 +87,7 @@ def activate(request, uidbd64, token):
         user.email_is_verified=True 
         user.save()
         # messages.success(request,'Your account has been verified successfully')
-        return Response('Your account has been verified successfully. You may proceed to log in.')
+        return HttpResponse('Your account has been verified successfully. You may proceed to log in.')
     
     return redirect('register')
 

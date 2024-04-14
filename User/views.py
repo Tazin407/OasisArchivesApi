@@ -102,11 +102,11 @@ class LoginView(APIView):
         user= authenticate(request, email=email, password=password)
         
         if user is not None:
-            login(request, user)
             token, _ = Token.objects.get_or_create(user=user)
-            return Response('Login Successful')
+            login(request, user)
+            return Response({'token' : token.key, 'user_id' : user.id})
         
-        return redirect('register')
+        return Response('Invalid Credential')
     
 class LogoutView(APIView):
     def get(self, request):

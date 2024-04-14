@@ -89,7 +89,7 @@ def activate(request, uidbd64, token):
         # messages.success(request,'Your account has been verified successfully')
         return HttpResponse('Your account has been verified successfully. You may proceed to log in.')
     
-    return redirect('register')
+    return HttpResponse('This email has been verified already')
 
 
 class LoginView(APIView):
@@ -112,4 +112,4 @@ class LogoutView(APIView):
     def get(self, request):
         request.user.auth_token.delete()
         logout(request)
-        return redirect('login')
+        return Response('Logged out successfully')

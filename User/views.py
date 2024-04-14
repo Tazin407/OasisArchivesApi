@@ -84,8 +84,8 @@ def activate(request, uidbd64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.email_is_verified=True 
         user.save()
-        messages.success(request,'Your account has been verified successfully')
-        return redirect('login')
+        # messages.success(request,'Your account has been verified successfully')
+        return Response('Your account has been verified successfully. You may proceed to log in now.')
     
     return redirect('register')
 

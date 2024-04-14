@@ -85,7 +85,7 @@ def activate(request, uidbd64, token):
         user.email_is_verified=True 
         user.save()
         # messages.success(request,'Your account has been verified successfully')
-        return Response('Your account has been verified successfully. You may proceed to log in now.')
+        return Response({'message': 'Your account has been verified successfully.'})
     
     return redirect('register')
 

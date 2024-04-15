@@ -32,7 +32,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS= ['https://oasisarchivesapi.onrender.com','https://*.127.0.0.1']
 CORS_ORIGIN_WHITELIST = [
-    'http://127.0.0.1:5500'  # Add your origin here
+    'http://127.0.0.1:5500',  # Add your origin here
 ]
 
 

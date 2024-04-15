@@ -106,7 +106,7 @@ class LoginView(APIView):
             login(request, user)
             return Response({'token' : token.key, 'user_id' : user.id})
         
-        return Response('Invalid Credential')
+        return Response('Wrong info. Try again')
     
 class LogoutView(APIView):
     def get(self, request):

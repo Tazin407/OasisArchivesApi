@@ -32,8 +32,9 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS= ['https://oasisarchivesapi.onrender.com','https://*.127.0.0.1']
 CORS_ORIGIN_WHITELIST = [
-    'http://127.0.0.1:5500'  # Add your origin here
+    'http://127.0.0.1:5500',  # Add your origin here
 ]
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
@@ -80,6 +81,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #added middleware
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'OasisArchives.urls'
@@ -150,6 +152,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+#added extra
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'images'),
+]
+
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'images')
 
 # URL used to access the media

@@ -25,7 +25,7 @@ class AllBooks(ModelViewSet):
                 print(wished_id)
                 queryset=queryset.filter(id__in=wished_id)
             except models.CustomUser.DoesNotExist:
-                return Response('User with that id doesnt exist')
+                return queryset
             
         return queryset
                 

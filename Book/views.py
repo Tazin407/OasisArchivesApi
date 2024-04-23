@@ -14,6 +14,23 @@ class AllBooks(ModelViewSet):
     serializer_class= serializers.Book
     queryset= models.Book.objects.all()
     
+    def get_queryset(self):
+        queryset= super().get_queryset()
+        user_id= self.request.query_params.get('user_id')
+        if user_id:
+            try:
+                user= models.CustomUser.objects.get(id=user_id)
+                wished_id= models.Wishlist.objects.filter(user=user).values_list('book_id', flat=True)
+                #flat=true dewate amar queryset tupple akare asbe na
+                print(wished_id)
+                queryset=queryset.filter(id__in=wished_id)
+            except models.CustomUser.DoesNotExist:
+                return Response('User with that id doesnt exist')
+            
+        return queryset
+                
+           
+    
     
 class WishlistView(ModelViewSet):
     serializer_class= serializers.Wishlist

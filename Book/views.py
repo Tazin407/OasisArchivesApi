@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from .import models 
 from .import serializers
@@ -29,6 +30,25 @@ class AllBooks(ModelViewSet):
             
         return queryset
                 
+class BorrowedBooks(ListAPIView):
+    serializer_class= serializers.Book
+    queryset= models.Book.objects.all()
+    
+    def get_queryset(self):
+        queryset= super().get_queryset()
+        user_id= self.request.query_params.get('user_id')
+        if user_id:
+            try:
+                user= models.CustomUser.objects.get(id=user_id)
+                borrowed_id= models.Borrow.objects.filter(user=user).values_list('book_id', flat=True)
+                #flat=true dewate amar queryset tupple akare asbe na
+                print(borrowed_id)
+                queryset=queryset.filter(id__in=borrowed_id)
+            except models.CustomUser.DoesNotExist:
+                return queryset
+            
+        return queryset
+    
            
     
     

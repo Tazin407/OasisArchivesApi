@@ -119,13 +119,16 @@ class BorrowView(ModelViewSet):
             queryset= queryset.filter(returned= returned)
         return queryset
     
-    def patch(self, request, pk):
-        edited_data = self.get_object(pk)
-        serializer = serializers.Borrow(edited_data, data=request.data, partial=True) # set partial=True to update a data partially
-        if serializer.is_valid():
-            serializer.save()
+    # def patch(self, request, *args, **kwargs):
+    #     edited_data = self.get_object()
+    #     serializer = serializers.Borrow(edited_data, data=request.data, partial=True) # set partial=True to update a data partially
+    #     if serializer.is_valid():
+    #         serializer.save()
             
-        return Response("Something went wrong")
+            
+    #     return Response("Something went wrong") 
+    def perform_update(self, serializer):
+        serializer.save()
             
     
    

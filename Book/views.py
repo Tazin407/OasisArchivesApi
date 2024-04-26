@@ -69,8 +69,10 @@ class WishlistView(ModelViewSet):
             queryset= queryset.filter(book_id= book_id)
         return queryset
     
-    def destroy(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)
+    def delete(self, request):
+        obj= self.get_object()
+        obj.delete()
+        return Response('Delete Successful')
     
     
 class ReviewAPI(ModelViewSet):

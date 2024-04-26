@@ -75,7 +75,7 @@ class WishlistView(ModelViewSet):
     #     obj.delete()
     #     return Response('Delete Successful')
     
-    def destroy(self, request, *args, **kwargs):
+    def delete(self, request, *args, **kwargs):
         try:
             instance = self.get_object()
             self.perform_destroy(instance)

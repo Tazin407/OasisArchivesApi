@@ -6,6 +6,7 @@ from .import models
 from .import serializers
 from django.contrib import messages
 from rest_framework.response import Response
+from django.http import Http404
 from django.contrib.auth import get_user_model
 
 # Create your views here.
@@ -69,10 +70,18 @@ class WishlistView(ModelViewSet):
             queryset= queryset.filter(book_id= book_id)
         return queryset
     
-    def delete(self, request):
-        obj= self.get_object()
-        obj.delete()
-        return Response('Delete Successful')
+    # def delete(self, request):
+    #     obj= self.get_object()
+    #     obj.delete()
+    #     return Response('Delete Successful')
+    
+    def destroy(self, request, *args, **kwargs):
+        try:
+            instance = self.get_object()
+            self.perform_destroy(instance)
+        except Http404:
+            pass
+        return Response("the data destroyed")
     
     
 class ReviewAPI(ModelViewSet):

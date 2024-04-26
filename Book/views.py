@@ -29,6 +29,9 @@ class AllBooks(ModelViewSet):
                 return queryset
             
         return queryset
+    
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
                 
 class BorrowedBooks(ListAPIView):
     serializer_class= serializers.Book

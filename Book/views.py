@@ -30,8 +30,7 @@ class AllBooks(ModelViewSet):
             
         return queryset
     
-    def destroy(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)
+    
                 
 class BorrowedBooks(ListAPIView):
     serializer_class= serializers.Book
@@ -69,6 +68,9 @@ class WishlistView(ModelViewSet):
         if book_id:
             queryset= queryset.filter(book_id= book_id)
         return queryset
+    
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
     
     
 class ReviewAPI(ModelViewSet):

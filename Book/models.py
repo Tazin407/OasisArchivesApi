@@ -2,7 +2,7 @@ from django.db import models
 from User.models import CustomUser
 
 class Book(models.Model):
-    image= models.ImageField(upload_to ='images')
+    image= models.ImageField(upload_to ='Book/media')
     title= models.CharField(max_length=30)
     author= models.CharField(max_length= 30)
     ISBN= models.CharField(max_length=14, null=True, blank=True)

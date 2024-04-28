@@ -40,11 +40,11 @@ class BorrowedBooks(ListAPIView):
     def get_queryset(self):
         queryset= super().get_queryset()
         user_id= self.request.query_params.get('user_id')
-        is_returned= self.request.query_params.get('returned')
+        # is_returned= self.request.query_params.get('returned')
         if user_id:
             try:
                 user= models.CustomUser.objects.get(id=user_id)
-                borrowed_id= models.Borrow.objects.filter(user=user, returned=is_returned).values_list('book_id', flat=True)
+                borrowed_id= models.Borrow.objects.filter(user=user, returned=False).values_list('book_id', flat=True)
                 #flat=true dewate amar queryset tupple akare asbe na
                 print(borrowed_id)
                 queryset=queryset.filter(id__in=borrowed_id)

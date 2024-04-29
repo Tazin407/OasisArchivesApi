@@ -6,6 +6,7 @@ from .import models
 from .import serializers
 from django.contrib import messages
 from rest_framework.response import Response
+from rest_framework import status
 from django.http import Http404
 from django.contrib.auth import get_user_model
 
@@ -103,6 +104,22 @@ class BorrowView(ModelViewSet):
     queryset= models.Borrow.objects.all()
     
     #for my custom query
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        book= serializer.validated_data["book"]
+        book_no= models.Book.objects.get(title=book)
+        book_no.numbers-=1
+        book_no.save()
+        print("book")
+        print(book_no, book_no.numbers)
+        
+        
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        
+    
     def get_queryset(self):
         queryset= super().get_queryset()
         user_id= self.request.query_params.get('user_id')
@@ -117,20 +134,17 @@ class BorrowView(ModelViewSet):
             queryset= queryset.filter(returned= returned)
         return queryset
     
-    # def patch(self, request, *args, **kwargs):
-    #     edited_data = self.get_object()
-    #     serializer = serializers.Borrow(edited_data, data=request.data, partial=True) # set partial=True to update a data partially
-    #     if serializer.is_valid():
-    #         serializer.save()
-            
-            
-    #     return Response("Something went wrong") 
+    
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
+        book= serializer.validated_data["book"]
+        book_no= models.Book.objects.get(title=book)
+        book_no.numbers+=1
+        book_no.save()
 
         if getattr(instance, '_prefetched_objects_cache', None):
             # If 'prefetch_related' has been applied to a queryset, we need to

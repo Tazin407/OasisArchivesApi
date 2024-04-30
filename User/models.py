@@ -14,6 +14,8 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
     def create_superuser(self, email, password, **extra_fields):
+        if len(email) > 254:
+            print("Email address is too long:", email)
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
@@ -25,11 +27,11 @@ class CustomUserManager(BaseUserManager):
     
 class CustomUser(AbstractUser):
     username= None
-    email= models.EmailField(_('Email Address'), max_length=50, unique= True)
-    password= models.CharField(max_length=30)
+    email= models.EmailField(_('Email Address'),max_length=254, unique= True)
+    password= models.CharField(max_length=50)
     email_is_verified= models.BooleanField(default= False)
-    first_name= models.CharField(max_length=20)
-    last_name= models.CharField(max_length=20)
+    first_name= models.CharField(max_length=50)
+    last_name= models.CharField(max_length=50)
     
     USERNAME_FIELD= 'email' 
     REQUIRED_FIELDS= []

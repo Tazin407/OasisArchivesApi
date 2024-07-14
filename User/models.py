@@ -28,10 +28,10 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     username= None
     email= models.EmailField(_('Email Address'),max_length=254, unique= True)
-    password= models.CharField(max_length=50)
+    password= models.CharField(max_length=150)
     email_is_verified= models.BooleanField(default= False)
-    first_name= models.CharField(max_length=50)
-    last_name= models.CharField(max_length=50)
+    first_name= models.CharField(max_length=150)
+    last_name= models.CharField(max_length=150)
     
     USERNAME_FIELD= 'email' 
     REQUIRED_FIELDS= []

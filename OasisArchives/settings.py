@@ -124,12 +124,12 @@ WSGI_APPLICATION = 'OasisArchives.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # DATABASES = {
 #     'default': {
@@ -142,12 +142,12 @@ WSGI_APPLICATION = 'OasisArchives.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': dj_database_url.parse(
-        'postgresql://postgres:RNxQebZEXqVSFtLfYoMkLORmhrqIzHJs@viaduct.proxy.rlwy.net:24634/railway',
+# DATABASES = {
+#     'default': dj_database_url.parse(
+#         'postgresql://postgres:RNxQebZEXqVSFtLfYoMkLORmhrqIzHJs@viaduct.proxy.rlwy.net:24634/railway',
         
-    )
-}
+#     )
+# }
 
 
 
